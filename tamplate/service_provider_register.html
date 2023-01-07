@@ -1,0 +1,41 @@
+{%extends 'service_header.html'%}
+{%block content%}
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+
+       <div class="containter">
+            <div class="row">
+                </div class="col">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <label for="">Username</label>
+                        <input type="text" name="username"><br>
+
+                        <label for="">Name</label>
+                        <input type="text" name="fname"><br>
+
+                        <label for="">Email Id</label>
+                        <input type="text" name="email"><br>
+
+                        <label for="">Contact No.</label>
+                        <input type="text" name="mobile"><br>
+
+                        <label for="">Password</label>
+                        <input type="password" name="pwd1"><br>
+
+                        <label for="">RE enter Password</label>
+                        <input type="password" name="pwd2"><br>
+
+                        <button type="submit">register</button><br>
+                        <h1>{{msg1}}</h1>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+{%endblock%}

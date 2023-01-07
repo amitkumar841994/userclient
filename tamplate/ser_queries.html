@@ -1,0 +1,33 @@
+{%extends 'service_header.html'%}
+{%block content%}
+<html>
+    <head>
+
+    </head>
+    <body>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Sr.</th>
+                <th scope="col">Service Name</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Queries</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+                {%for data in qu%}
+              <tr>
+                <th scope="row">{{data.id}}</th>
+                <td>{{data.service_name}}</td>
+                <td>{{data.Useremail}}</td>
+                <td>{{data.queries}}</td>
+                <td>Actions</td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+    </body>
+</html>
+
+{%endblock%}
