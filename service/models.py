@@ -14,7 +14,7 @@ class service(models.Model):
     service_name=models.CharField(max_length=50)
     service_descriptions=models.CharField(max_length=1000)
     service_cost=models.FloatField()
-    provider=models.ForeignKey(service_provider_registrations,on_delete=models.SET_NULL,null=True)
+    provider=models.CharField(max_length=1000)
 
 
 # Create your models here.

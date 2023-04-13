@@ -4,10 +4,11 @@ from django.contrib.auth.models import User
 from service .models import service
 from .models import user_quries,user_register
 from django.contrib.auth.decorators import login_required
+from user.middleware.auth import user_login_req
 
 
 def userhome(request):
-    return render(request,'user_home.html')
+    return render(request,'index.html')
 
 def userregister(request):
     user=User()
@@ -40,21 +41,28 @@ def userlogout(request):
 def user_query(request,pid):
     srname=service.objects.all()
     dt=service.objects.get(id=pid)
-    print(dt.service_name)
-    abc=str(dt.provider)
+    # print(dt.service_name)
+    user_name=request.session.get('user_data')
+    service_provider=str(dt.provider)
     if request.method=='POST':
         servicename=dt.service_name
-        providername=abc
+        providername=service_provider
+        username=user_name
         email=request.POST.get('emailid')
         query=request.POST.get('query')
-        que=user_quries.objects.create(service_name=servicename,provider_name=providername,Useremail=email,queries=query)
+        que=user_quries.objects.create(service_name=servicename,provider_name=providername,Useremail=email,queries=query,username=username)
         que.save()
     return render(request,'user_query.html',{'srname':srname,'pid':dt})
 
-@login_required(login_url='userlogin')
+@user_login_req
 def user_service_details(request):
     ser_det=service.objects.all()
     print(request.user)
     return render(request,'user_service_details.html',{'dt1':ser_det})
+
+def user_query_status(request):
+        user_name=request.session.get('user_data')
+        qur_status=user_quries.objects.filter(username=user_name)
+        return render(request,'user_query_status.html',{'status':qur_status})
 
 # Create your views here.

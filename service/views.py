@@ -4,9 +4,15 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from service.middleware.auth import login_req
 from user .models import user_quries
+from Food .models import Food
+from datetime import datetime
 
 def service_home(request):
-    return render(request,'service_home.html')
+    get_user=request.session.get('user_dt')
+
+    qur1=user_quries.objects.filter(provider_name=get_user).count()
+
+    return render(request,'service_home.html',{'qu1':qur1})
 
 def service_provider_register(request):
     if request.method=='POST':
@@ -38,10 +44,10 @@ def servic_logout(request):
 
 @login_req
 def add_services(request):
+
     ser=service()
     get_user=request.session.get('user_dt')
-    if request.method=='POST':
-        
+    if request.method=='POST': 
         service_name=request.POST.get('servicename')
         service_descriptions=request.POST.get('servicedescriptions')
         service_cost=request.POST.get('servicecost')
@@ -49,14 +55,34 @@ def add_services(request):
             service_name=service_name,
             service_descriptions=service_descriptions,
             service_cost=service_cost,
-            
-    
+            provider=get_user
         )
-        service_provider_registrations.username=get_user
         service_dt.save()
-    dt=service.objects.all()  
+    dt=service.objects.filter(provider=get_user)  
 
     return render(request,'add_services.html',{'dt':dt})
+
+def delete_sevices(request,pid):
+    dele=service.objects.get(id=pid)
+    dele.delete()
+    return redirect('add_services')
+
+def update_service(request,pid):
+    up=service.objects.get(id=pid)
+    if request.method=='POST':
+        service_name=request.POST.get('servicename')
+        service_descriptions=request.POST.get('servicedescriptions')
+        service_cost=request.POST.get('servicecost')
+        service_dt1=service.objects.filter(pk=pid).update(
+            service_name=service_name,
+            service_descriptions=service_descriptions,
+            service_cost=service_cost,
+        )
+        return redirect('add_services')
+        
+    
+    
+    return render(request,'add_services.html',{'up_dt':up})
 
 @login_req
 def queries(request):
@@ -67,7 +93,15 @@ def queries(request):
     print(request.user)
     return render(request,'ser_queries.html',{'qu':qur,'qu1':qur1})
 
+def queries_status(request,pid):
+    status=user_quries.objects.get(id=pid)
+    print(status)
+    # get_user=request.sesson.get('user_dt')
+    # return render(request,'ser_queries.html',{'status':status})
 
+    if status is not None:
+        user_quries.objects.filter(pk=pid).update(quer_status='Resolved',resloved_date=str(datetime.now()))
+    return redirect(queries)
 
 
 # Create your views here.

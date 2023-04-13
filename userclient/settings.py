@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
-import django_heroku
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
-    'service'
+    'service',
+    'Food'
 ]
 
 MIDDLEWARE = [
@@ -124,12 +125,14 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static/')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/image/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Activate Django_Heroku
-django_heroku.settings(locals())
+

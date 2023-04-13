@@ -8,11 +8,14 @@
         <table class="table">
             <thead>
               <tr>
-                <th scope="col">Sr.</th>
-                <th scope="col">Service Name</th>
-                <th scope="col">User Name</th>
-                <th scope="col">Queries</th>
-                <th scope="col">Actions</th>
+                <th >Sr.</th>
+                <th >Service Name</th>
+                <th >Provider Name</th>
+                <th >User Name</th>
+                <th>User Email</th>
+                <th>Queries</th>
+                <th>Satus</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -20,9 +23,17 @@
               <tr>
                 <th scope="row">{{data.id}}</th>
                 <td>{{data.service_name}}</td>
+                <td>{{data.provider_name}}</td>
+                <td>{{data.username}}</td>
                 <td>{{data.Useremail}}</td>
                 <td>{{data.queries}}</td>
-                <td>Actions</td>
+                <td>{{data.quer_status}}</td>
+                {%if data.quer_status == 'Pending'%}
+                <td><a href="{%url 'queries_status' data.id%}"><button class="btn btn-info " >Resolved</button></a></td>
+                {% else %}
+                <td><a href="{%url 'queries_status' data.id%}"><button class="btn btn-info" disabled >Resolved</button></a></td>
+
+                {%endif%}
               </tr>
               {%endfor%}
             </tbody>

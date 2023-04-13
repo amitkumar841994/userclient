@@ -29,19 +29,19 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Service Name</span>
                             </div>
-                            <input type="text" class="form-control" name="servicename" aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" name="servicename" value="{{up_dt.service_name}}" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Service Descriptions</span>
                             </div>
-                            <input type="text" class="form-control" name="servicedescriptions" aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" name="servicedescriptions" value="{{up_dt.service_descriptions}}" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Service Cost</span>
                             </div>
-                            <input type="text" class="form-control" name="servicecost" aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" name="servicecost"  value="{{up_dt.service_cost}}" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                         <div>
                             <button type="submit" class="btn btn-info">Submit</button>
@@ -69,8 +69,8 @@
                                 <td>{{data.service_descriptions}}</td>
                                 <td>{{data.service_cost}}</td>
                                 <td>{{data.provider}}</td>
-                                <td><a href=""><button type="button" class="btn btn-info">Edit</button></a></td>
-                                <td><a href="{"><button class="btn btn-danger">Delete</button></a></td>
+                                <td><a href="{%url 'update_service' data.id%}"><button type="button" class="btn btn-info">Edit</button></a></td>
+                                <td><a href="{%url 'delete_sevices' data.id%}"><button class="btn btn-danger">Delete</button></a></td>
                             </tr>
                             {%endfor%}
                         </tbody>   
